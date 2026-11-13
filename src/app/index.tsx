@@ -1,6 +1,5 @@
 import { useRouter } from 'expo-router';
 import React, { useMemo } from 'react';
-import { Alert, Platform } from 'react-native';
 import {
   BigButton,
   Card,
@@ -19,7 +18,8 @@ import {
   calculBeton,
   type ElementBeton,
 } from '../lib/beton';
-import { fmt, fmtMoney, parseNum } from '../lib/format';
+import { fmt, fmtMoney, parseNum, round } from '../lib/format';
+import { notify } from '../lib/notify';
 import { usePersistentState } from '../lib/storage';
 import { useStore } from '../lib/store';
 
@@ -52,15 +52,6 @@ const NOMS: Record<ElementBeton, string> = {
   semelle: 'Semelle(s)',
   mur: 'Mur',
 };
-
-function notify(title: string, msg: string) {
-  if (Platform.OS === 'web') {
-    // eslint-disable-next-line no-alert
-    globalThis.alert?.(`${title}\n${msg}`);
-  } else {
-    Alert.alert(title, msg);
-  }
-}
 
 export default function BetonScreen() {
   const [s, setS] = usePersistentState<BetonState>('beton', INITIAL);
@@ -198,7 +189,3 @@ export default function BetonScreen() {
   );
 }
 
-function round(v: number, d: number) {
-  const f = 10 ** d;
-  return Math.round(v * f) / f;
-}

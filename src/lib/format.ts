@@ -65,3 +65,8 @@ export const MONTHS_FR = [
   'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre',
 ];
 export const DAYS_FR_SHORT = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+
+export function round(v: number, d: number): number {
+  const f = 10 ** d;
+  return Math.round(v * f) / f;
+}
