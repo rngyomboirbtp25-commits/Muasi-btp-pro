@@ -170,6 +170,11 @@ export function Field({
 /** Deux (ou plus) champs côte à côte. */
 const RowContext = React.createContext(false);
 
+/** Vrai si le composant est placé dans un <Row>. */
+export function useInRow() {
+  return React.useContext(RowContext);
+}
+
 export function Row({ children, style }: { children: React.ReactNode; style?: StyleProp<ViewStyle> }) {
   return (
     <RowContext.Provider value>
